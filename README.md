@@ -11,7 +11,8 @@ Requirements
 ============
 
 1.) MYSQLi connection
-2.) Sufficient Mysql user privlidges to create tables, add/drop indexes, and insert/delete table rows. 
+2.) Sufficient Mysql user privlidges to create tables, add/drop indexes, and insert/delete table rows.
+3.) InnoDb engine support (for the log tables).
 
 Important Notes
 ===============
@@ -56,4 +57,4 @@ $newReportsIndexes->rebuildIndexes();
 Crash Recovery - Keeping Your Hard Work Safe
 ============================================
 
-If you really need this, odds are good you are working on a big database. I created this while developing a 100+ table database storing nearly 1/2 BILLION rows of data. The thought of loosing my index information made me shudder.... so I buit automatic crash recovery and history logging into this class! You don't need to do anything. As long as your mysqli connection user has sufficient privlidges to alter the database, it takes care of everything for you. There are two logs created, a recovery log and a history log. The recovery log table name is 'SYSTEM-index-recovery-log'. The history log table name is 'SYSTEM-index-history-log'. The history log is just that, a timestamped history log of your use of this class, think of it as a backup log to the recovery log, which is totally dynamic. An empty recovery log is a happy recovery log :)
+If you really need this, odds are good you are working on a big database. I created this while developing a 100+ table database storing nearly 1/2 BILLION rows of data. The thought of loosing my index information made me shudder.... so I buit automatic crash recovery and history logging into this class! You don't need to do anything. As long as your mysqli connection user has sufficient privlidges to alter the database, it takes care of everything for you. There are two logs created, a recovery log and a history log. The recovery log table name is 'SYSTEM-index-recovery-log'. The history log table name is 'SYSTEM-index-history-log'. The history log is just that, a timestamped history log of your use of this class, think of it as a backup log to the recovery log, which is totally dynamic. An empty recovery log is a happy recovery log :) Please note that these logs are automatically created when you intialize the class, so you don't have to do anything. The tables use the InnoDb engine.
